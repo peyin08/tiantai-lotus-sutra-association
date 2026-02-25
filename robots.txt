@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tiantai-lotus-sutra-association.com/sitemap.xml

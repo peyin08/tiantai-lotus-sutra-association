@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tiantai Lotus Sutra Association</title>
+  <meta
+    name="description"
+    content="Tiantai Lotus Sutra Association community website with bilingual updates, media uploads, donations, and optional cloud sync."
+  />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="googlebot" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#b32d2e" />
+  <meta name="author" content="Tiantai Lotus Sutra Association" />
+  <link rel="canonical" href="https://tiantai-lotus-sutra-association.com/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Tiantai Lotus Sutra Association" />
+  <meta
+    property="og:description"
+    content="Bilingual association updates, event media, and donations for Tiantai Lotus Sutra Association."
+  />
+  <meta property="og:url" content="https://tiantai-lotus-sutra-association.com/" />
+  <meta property="og:site_name" content="Tiantai Lotus Sutra Association" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Tiantai Lotus Sutra Association" />
+  <meta
+    name="twitter:description"
+    content="Bilingual association updates, media uploads, and donation support."
+  />
+
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Tiantai Lotus Sutra Association",
+      "url": "https://tiantai-lotus-sutra-association.com/",
+      "email": "donations@tiantianlotus.org",
+      "description": "Bilingual community website for Tiantai Lotus Sutra Association with updates, media sharing, and donations.",
+      "potentialAction": {
+        "@type": "DonateAction",
+        "target": "https://tiantai-lotus-sutra-association.com/#donate"
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="hero" id="top">
+    <nav class="top-nav">
+      <div class="brand">
+        <span class="brand-mark">Lotus</span>
+        <span class="brand-name">Tiantai Lotus Sutra Association 天台法华经协会</span>
+      </div>
+      <div class="nav-links">
+        <a href="#updates" data-i18n="nav_updates">Updates</a>
+        <a href="#gallery" data-i18n="nav_gallery">Gallery</a>
+        <a href="#donate" data-i18n="nav_donate">Donate</a>
+        <a href="#studio" class="nav-cta" data-i18n="nav_upload">Upload</a>
+      </div>
+      <div class="lang-switch" role="group" aria-label="Language switcher">
+        <button type="button" class="lang-btn active" data-lang-btn="en">EN</button>
+        <button type="button" class="lang-btn" data-lang-btn="zh">中文</button>
+      </div>
+    </nav>
+
+    <div class="hero-layout">
+      <div class="hero-copy">
+        <p class="eyebrow" data-i18n="hero_eyebrow">Community Practice • Compassion • Service</p>
+        <h1 data-i18n="hero_title">Share our practice, preserve our moments, support our mission.</h1>
+        <p class="hero-text" data-i18n="hero_text">
+          A welcoming home for Tiantai Lotus Sutra Association to publish updates,
+          share event photos and videos, and receive donations for community programs.
+        </p>
+        <div class="hero-actions">
+          <a href="#donate" class="button primary" data-i18n="hero_donate">Donate Now</a>
+          <a href="#studio" class="button ghost" data-i18n="hero_post">Post Update</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <h2 data-i18n="hero_card_title">Open for Donations</h2>
+        <p data-i18n="hero_card_text">
+          Support scripture study sessions, community meals, youth learning, and temple maintenance.
+        </p>
+        <ul>
+          <li data-i18n="hero_card_li1">Monthly supporters welcome</li>
+          <li data-i18n="hero_card_li2">One-time gifts accepted</li>
+          <li data-i18n="hero_card_li3">Sponsor an event or offering</li>
+        </ul>
+        <a href="#donate" class="button secondary full" data-i18n="hero_card_cta">Support the Association</a>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="section intro" aria-labelledby="mission-title">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="mission_eyebrow">Mission</p>
+        <h2 id="mission-title" data-i18n="mission_title">Rooted in the Lotus Sutra, expressed through daily kindness.</h2>
+      </div>
+      <div class="intro-grid">
+        <article>
+          <h3 data-i18n="intro_practice_title">Practice Together</h3>
+          <p data-i18n="intro_practice_text">
+            Share chanting sessions, teachings, and study circle highlights so members and friends can stay connected.
+          </p>
+        </article>
+        <article>
+          <h3 data-i18n="intro_service_title">Serve the Community</h3>
+          <p data-i18n="intro_service_text">
+            Publish outreach updates and invite support for charitable activities and local service events.
+          </p>
+        </article>
+        <article>
+          <h3 data-i18n="intro_preserve_title">Preserve Memories</h3>
+          <p data-i18n="intro_preserve_text">
+            Upload event photos and videos to document growth, celebration, and intergenerational participation.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section updates" id="updates" aria-labelledby="updates-title">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="updates_eyebrow">Latest</p>
+        <h2 id="updates-title" data-i18n="updates_title">Association Updates</h2>
+        <p class="section-sub" data-i18n="updates_sub">
+          Posts are stored locally and can optionally sync to Supabase for multi-device access.
+        </p>
+      </div>
+      <div class="updates-toolbar">
+        <input
+          id="searchInput"
+          type="search"
+          placeholder="Search updates by title or text"
+          aria-label="Search updates"
+          data-i18n-placeholder="search_placeholder"
+        />
+        <button id="syncNowBtn" class="button secondary" type="button" data-i18n="sync_now">
+          Sync From Cloud
+        </button>
+        <button id="clearAllBtn" class="button ghost warn" type="button" data-i18n="clear_posts">
+          Clear All Posts
+        </button>
+      </div>
+      <div id="postsList" class="posts-list" aria-live="polite"></div>
+    </section>
+
+    <section class="section gallery" id="gallery" aria-labelledby="gallery-title">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="gallery_eyebrow">Media</p>
+        <h2 id="gallery-title" data-i18n="gallery_title">Community Gallery</h2>
+        <p class="section-sub" data-i18n="gallery_sub">Images and videos from your published updates.</p>
+      </div>
+      <div id="galleryGrid" class="gallery-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="section donate" id="donate" aria-labelledby="donate-title">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="donate_eyebrow">Support</p>
+        <h2 id="donate-title" data-i18n="donate_title">Donate to Tiantai Lotus Sutra Association</h2>
+        <p class="section-sub" data-i18n="donate_sub">
+          Donation links and contact info can be updated below in Donation Settings.
+        </p>
+      </div>
+
+      <div class="donate-grid">
+        <div class="donate-panel">
+          <h3 data-i18n="donate_panel_title">Give Online</h3>
+          <p data-i18n="donate_panel_text">Use the buttons below for online donations.</p>
+          <div class="donation-buttons">
+            <a id="donatePaypalBtn" class="button primary full" href="#" target="_blank" rel="noopener" data-i18n="donate_paypal">
+              Donate via PayPal
+            </a>
+            <a id="donateStripeBtn" class="button secondary full" href="#" target="_blank" rel="noopener" data-i18n="donate_stripe">
+              Donate via Stripe
+            </a>
+            <a id="donateZelleBtn" class="button ghost full" href="#" target="_blank" rel="noopener" data-i18n="donate_zelle">
+              Zelle / Bank Transfer Info
+            </a>
+          </div>
+          <p id="donationNotice" class="tiny-note"></p>
+        </div>
+
+        <div class="donate-panel impact">
+          <h3 data-i18n="impact_title">Donation Impact</h3>
+          <ul class="impact-list">
+            <li><span>$25</span><span data-i18n="impact_25">Supports tea and supplies for a study gathering</span></li>
+            <li><span>$108</span><span data-i18n="impact_108">Sponsors one community chanting session</span></li>
+            <li><span>$300</span><span data-i18n="impact_300">Helps fund outreach or volunteer meal service</span></li>
+            <li><span data-i18n="impact_any_amount">Any amount</span><span data-i18n="impact_any_text">Sustains ongoing association activities</span></li>
+          </ul>
+          <div class="bank-box">
+            <strong data-i18n="contact_title">Contact for Receipts / Sponsorship</strong>
+            <p><span data-i18n="label_email">Email</span>: <a id="donationEmailLink" href="mailto:donations@tiantianlotus.org">donations@tiantianlotus.org</a></p>
+            <p><span data-i18n="label_phone">Phone</span>: <span id="donationPhoneText">(000) 000-0000</span></p>
+            <p><span data-i18n="label_message">Message</span>: <span id="donationMessageText"></span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section studio" id="studio" aria-labelledby="studio-title">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="studio_eyebrow">Admin</p>
+        <h2 id="studio-title" data-i18n="studio_title">Updates Studio (Upload Image / Video)</h2>
+        <p class="section-sub" data-i18n="studio_sub">
+          Create bilingual posts and optionally upload media to cloud storage via Supabase.
+        </p>
+      </div>
+
+      <div class="admin-grid">
+        <form id="postForm" class="studio-form">
+          <h3 class="panel-title" data-i18n="compose_title">Create Update</h3>
+
+          <div class="field-row">
+            <label>
+              <span data-i18n="post_title_en">Post Title (English)</span>
+              <input type="text" id="postTitle" name="postTitle" required maxlength="120" />
+            </label>
+            <label>
+              <span data-i18n="post_date">Event Date</span>
+              <input type="date" id="postDate" name="postDate" />
+            </label>
+          </div>
+
+          <label>
+            <span data-i18n="post_title_zh">Post Title (Chinese / 中文标题)</span>
+            <input type="text" id="postTitleZh" name="postTitleZh" maxlength="120" />
+          </label>
+
+          <label>
+            <span data-i18n="post_body_en">Update Details (English)</span>
+            <textarea
+              id="postBody"
+              name="postBody"
+              rows="4"
+              required
+              maxlength="2000"
+              data-i18n-placeholder="post_body_placeholder_en"
+              placeholder="Share news, teachings, event details, volunteer notes, or announcements..."
+            ></textarea>
+          </label>
+
+          <label>
+            <span data-i18n="post_body_zh">Update Details (Chinese / 中文内容)</span>
+            <textarea
+              id="postBodyZh"
+              name="postBodyZh"
+              rows="4"
+              maxlength="2000"
+              data-i18n-placeholder="post_body_placeholder_zh"
+              placeholder="可填写中文活动更新、法会信息、志工说明等..."
+            ></textarea>
+          </label>
+
+          <label class="file-picker">
+            <span data-i18n="upload_media">Upload Images or Videos</span>
+            <input
+              type="file"
+              id="postMedia"
+              name="postMedia"
+              accept="image/*,video/*"
+              multiple
+            />
+            <small data-i18n="upload_help">Accepted: images and videos (multiple files allowed)</small>
+          </label>
+
+          <div id="mediaPreview" class="media-preview"></div>
+
+          <div class="form-actions">
+            <button type="submit" class="button primary" data-i18n="publish_update">Publish Update</button>
+            <button type="reset" id="resetFormBtn" class="button ghost" data-i18n="reset_form">Reset</button>
+          </div>
+        </form>
+
+        <div class="admin-side">
+          <form id="donationSettingsForm" class="studio-form compact">
+            <h3 class="panel-title" data-i18n="donation_settings_title">Donation Settings</h3>
+            <p class="tiny-note" data-i18n="donation_settings_sub">
+              Save your real donation links and contact info (stored locally on this device).
+            </p>
+
+            <label>
+              <span data-i18n="label_paypal_url">PayPal Donation URL</span>
+              <input type="url" id="paypalUrl" placeholder="https://www.paypal.com/..." />
+            </label>
+            <label>
+              <span data-i18n="label_stripe_url">Stripe Donation URL</span>
+              <input type="url" id="stripeUrl" placeholder="https://buy.stripe.com/..." />
+            </label>
+            <label>
+              <span data-i18n="label_zelle_url">Zelle / Bank Info URL</span>
+              <input type="url" id="zelleUrl" placeholder="https://your-site.org/donate" />
+            </label>
+            <label>
+              <span data-i18n="label_email">Email</span>
+              <input type="email" id="donationEmail" placeholder="donations@example.org" />
+            </label>
+            <label>
+              <span data-i18n="label_phone">Phone</span>
+              <input type="text" id="donationPhone" placeholder="(555) 555-5555" />
+            </label>
+            <label>
+              <span data-i18n="label_message">Donation Message / Notes</span>
+              <textarea id="donationMessage" rows="3" placeholder="Tax receipt info, transfer notes, etc."></textarea>
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="button secondary" data-i18n="save_donation_settings">Save Donation Settings</button>
+            </div>
+          </form>
+
+          <form id="cloudSettingsForm" class="studio-form compact">
+            <h3 class="panel-title" data-i18n="cloud_settings_title">Cloud Sync (Supabase)</h3>
+            <p class="tiny-note" data-i18n="cloud_settings_sub">
+              Optional: connect Supabase to sync posts and upload media across devices.
+            </p>
+
+            <label>
+              <span data-i18n="supabase_url">Supabase Project URL</span>
+              <input type="url" id="supabaseUrl" placeholder="https://xxxx.supabase.co" />
+            </label>
+            <label>
+              <span data-i18n="supabase_anon_key">Supabase Anon Key</span>
+              <textarea id="supabaseAnonKey" rows="3" placeholder="eyJhbGciOi..."></textarea>
+            </label>
+            <div class="field-row">
+              <label>
+                <span data-i18n="posts_table">Posts Table</span>
+                <input type="text" id="supabasePostsTable" value="association_posts" />
+              </label>
+              <label>
+                <span data-i18n="storage_bucket">Storage Bucket</span>
+                <input type="text" id="supabaseBucket" value="association-media" />
+              </label>
+            </div>
+            <label class="checkbox-row">
+              <input type="checkbox" id="cloudAutoPublish" checked />
+              <span data-i18n="cloud_auto_publish">Auto-publish new posts to cloud when connected</span>
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="button secondary" data-i18n="save_cloud_settings">Save Cloud Settings</button>
+              <button type="button" id="cloudConnectBtn" class="button ghost" data-i18n="connect_test">
+                Connect / Test
+              </button>
+            </div>
+            <p id="cloudStatus" class="status-line" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <template id="postTemplate">
+    <article class="post-card">
+      <div class="post-header">
+        <div>
+          <h3 class="post-title"></h3>
+          <p class="post-meta"></p>
+          <p class="post-title-secondary"></p>
+        </div>
+        <button type="button" class="icon-btn delete-post" aria-label="Delete post" data-i18n="delete_post">Delete</button>
+      </div>
+      <p class="post-body"></p>
+      <p class="post-body-secondary"></p>
+      <div class="post-media-grid"></div>
+    </article>
+  </template>
+
+  <template id="galleryItemTemplate">
+    <figure class="gallery-item">
+      <div class="gallery-media-wrap"></div>
+      <figcaption></figcaption>
+    </figure>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
