@@ -6,6 +6,11 @@ const STORAGE_KEYS = {
   lang: "tiantian-lotus-language-v1",
 };
 
+const PUBLIC_CLOUD_CONFIG =
+  window.PUBLIC_CLOUD_CONFIG && typeof window.PUBLIC_CLOUD_CONFIG === "object"
+    ? window.PUBLIC_CLOUD_CONFIG
+    : null;
+
 const I18N = {
   en: {
     nav_about: "About",
@@ -361,6 +366,8 @@ const state = {
   siteProfile: { ...DEFAULT_SITE_PROFILE },
   cloudSettings: { ...DEFAULT_CLOUD_SETTINGS },
   supabaseClient: null,
+  supabaseClientKey: "",
+  isAdminView: false,
 };
 
 const elements = {
@@ -442,6 +449,10 @@ function t(key) {
 function setCloudStatus(message, type = "") {
   elements.cloudStatus.textContent = message;
   elements.cloudStatus.className = `status-line${type ? ` ${type}` : ""}`;
+}
+
+function hasCloudCreds(config) {
+  return Boolean(config?.url && config?.anonKey && !String(config.anonKey).includes("PASTE_YOUR_SUPABASE_ANON_KEY_HERE"));
 }
 
 function setStatusLine(el, message, type = "") {
@@ -924,40 +935,62 @@ function canUseCloud() {
   return Boolean(state.cloudSettings.url && state.cloudSettings.anonKey);
 }
 
+function getReadCloudConfig() {
+  if (hasCloudCreds(state.cloudSettings)) {
+    return state.cloudSettings;
+  }
+  if (hasCloudCreds(PUBLIC_CLOUD_CONFIG)) {
+    return {
+      ...DEFAULT_CLOUD_SETTINGS,
+      ...PUBLIC_CLOUD_CONFIG,
+      autoPublish: false,
+    };
+  }
+  return null;
+}
+
+function canUseCloudRead() {
+  return Boolean(getReadCloudConfig());
+}
+
 function getSupabaseFactory() {
   return window.supabase && typeof window.supabase.createClient === "function"
     ? window.supabase
     : null;
 }
 
-async function ensureSupabaseClient() {
-  if (!canUseCloud()) throw new Error("Cloud settings are incomplete");
+async function ensureSupabaseClient(configOverride = null) {
+  const activeConfig = configOverride || state.cloudSettings;
+  if (!hasCloudCreds(activeConfig)) throw new Error("Cloud settings are incomplete");
   const factory = getSupabaseFactory();
   if (!factory) throw new Error("Supabase client library not loaded");
 
-  if (!state.supabaseClient) {
+  const clientKey = `${activeConfig.url.trim()}::${String(activeConfig.anonKey).trim()}`;
+  if (!state.supabaseClient || state.supabaseClientKey !== clientKey) {
     state.supabaseClient = factory.createClient(
-      state.cloudSettings.url.trim(),
-      state.cloudSettings.anonKey.trim()
+      activeConfig.url.trim(),
+      String(activeConfig.anonKey).trim()
     );
+    state.supabaseClientKey = clientKey;
   }
   return state.supabaseClient;
 }
 
 function resetSupabaseClient() {
   state.supabaseClient = null;
+  state.supabaseClientKey = "";
 }
 
-function cloudTable() {
-  return state.cloudSettings.postsTable || DEFAULT_CLOUD_SETTINGS.postsTable;
+function cloudTable(config = state.cloudSettings) {
+  return config.postsTable || DEFAULT_CLOUD_SETTINGS.postsTable;
 }
 
-function cloudSettingsTable() {
-  return state.cloudSettings.siteSettingsTable || DEFAULT_CLOUD_SETTINGS.siteSettingsTable;
+function cloudSettingsTable(config = state.cloudSettings) {
+  return config.siteSettingsTable || DEFAULT_CLOUD_SETTINGS.siteSettingsTable;
 }
 
-function cloudBucket() {
-  return state.cloudSettings.bucket || DEFAULT_CLOUD_SETTINGS.bucket;
+function cloudBucket(config = state.cloudSettings) {
+  return config.bucket || DEFAULT_CLOUD_SETTINGS.bucket;
 }
 
 async function testCloudConnection() {
@@ -988,10 +1021,12 @@ async function upsertSiteSettingsToCloud() {
   if (error) throw error;
 }
 
-async function syncSiteSettingsFromCloud() {
-  const client = await ensureSupabaseClient();
+async function syncSiteSettingsFromCloud(config = null) {
+  const readConfig = config || getReadCloudConfig();
+  if (!readConfig) return;
+  const client = await ensureSupabaseClient(readConfig);
   const { data, error } = await client
-    .from(cloudSettingsTable())
+    .from(cloudSettingsTable(readConfig))
     .select("key,value")
     .in("key", ["donation_settings", "site_profile"]);
   if (error) throw error;
@@ -1107,17 +1142,19 @@ function mergePostsById(localPosts, incomingPosts) {
   return [...map.values()].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 }
 
-async function syncFromCloud() {
-  if (!canUseCloud()) {
-    setCloudStatus(t("cloud_not_configured"), "error");
+async function syncFromCloud(options = {}) {
+  const { silent = false } = options;
+  const readConfig = getReadCloudConfig();
+  if (!readConfig) {
+    if (!silent) setCloudStatus(t("cloud_not_configured"), "error");
     return;
   }
 
   try {
-    setCloudStatus(t("cloud_syncing"));
-    const client = await ensureSupabaseClient();
+    if (!silent) setCloudStatus(t("cloud_syncing"));
+    const client = await ensureSupabaseClient(readConfig);
     const { data, error } = await client
-      .from(cloudTable())
+      .from(cloudTable(readConfig))
       .select("*")
       .order("created_at", { ascending: false });
     if (error) throw error;
@@ -1125,12 +1162,14 @@ async function syncFromCloud() {
     const incoming = (data || []).map(fromCloudRow).filter(Boolean);
     state.posts = mergePostsById(state.posts, incoming);
     savePosts();
-    await syncSiteSettingsFromCloud();
+    await syncSiteSettingsFromCloud(readConfig);
     renderAll();
-    setCloudStatus(t("cloud_site_settings_synced"), "ok");
+    if (!silent) setCloudStatus(t("cloud_site_settings_synced"), "ok");
   } catch (error) {
     console.error(error);
-    setCloudStatus(`${t("cloud_sync_failed")} ${error.message || ""}`.trim(), "error");
+    if (!silent) {
+      setCloudStatus(`${t("cloud_sync_failed")} ${error.message || ""}`.trim(), "error");
+    }
   }
 }
 
@@ -1373,14 +1412,25 @@ function bindEvents() {
 }
 
 function init() {
+  const params = new URLSearchParams(window.location.search);
+  state.isAdminView = params.get("admin") === "1";
+
   loadState();
   fillSettingsForms();
   bindEvents();
   renderDonationPanel();
   renderAboutSection();
   applyTranslations();
-  if (!canUseCloud()) {
+
+  if (!state.isAdminView && elements.syncNowBtn) {
+    elements.syncNowBtn.hidden = true;
+  }
+
+  if (!canUseCloud() && !canUseCloudRead()) {
     setCloudStatus(t("cloud_not_configured"));
+  }
+  if (canUseCloudRead()) {
+    void syncFromCloud({ silent: true });
   }
 }
 
