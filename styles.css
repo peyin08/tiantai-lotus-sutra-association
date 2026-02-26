@@ -273,7 +273,8 @@ a {
 .post-card,
 .donate-panel,
 .studio-form,
-.gallery-item {
+.gallery-item,
+.about-card {
   border: 1px solid var(--line);
   background: rgba(255, 255, 255, 0.72);
   box-shadow: var(--shadow);
@@ -291,6 +292,32 @@ a {
 .intro-grid p {
   margin: 0.4rem 0 0;
   color: var(--muted);
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 0.8rem;
+}
+
+.about-card {
+  border-radius: 18px;
+  padding: 1rem;
+}
+
+.about-card h3 {
+  margin: 0;
+  font-family: "Georgia", serif;
+}
+
+.about-card p {
+  margin: 0.45rem 0 0;
+  color: var(--muted);
+}
+
+.about-card p strong {
+  color: var(--ink);
 }
 
 .updates-toolbar {
@@ -619,7 +646,8 @@ textarea:focus {
 @media (max-width: 1100px) {
   .hero-layout,
   .donate-grid,
-  .admin-grid {
+  .admin-grid,
+  .about-grid {
     grid-template-columns: 1fr;
   }
 

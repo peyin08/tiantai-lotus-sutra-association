@@ -16,6 +16,14 @@ create table if not exists public.association_posts (
 
 alter table public.association_posts enable row level security;
 
+create table if not exists public.association_site_settings (
+  key text primary key,
+  value jsonb not null default '{}'::jsonb,
+  updated_at timestamptz not null default now()
+);
+
+alter table public.association_site_settings enable row level security;
+
 -- Demo/open setup: public read + anon insert/update/delete.
 -- Tighten these policies if you add authentication later.
 drop policy if exists "association_posts_select_all" on public.association_posts;
@@ -40,6 +48,31 @@ with check (true);
 drop policy if exists "association_posts_delete_all" on public.association_posts;
 create policy "association_posts_delete_all"
 on public.association_posts
+for delete
+using (true);
+
+drop policy if exists "association_site_settings_select_all" on public.association_site_settings;
+create policy "association_site_settings_select_all"
+on public.association_site_settings
+for select
+using (true);
+
+drop policy if exists "association_site_settings_insert_all" on public.association_site_settings;
+create policy "association_site_settings_insert_all"
+on public.association_site_settings
+for insert
+with check (true);
+
+drop policy if exists "association_site_settings_update_all" on public.association_site_settings;
+create policy "association_site_settings_update_all"
+on public.association_site_settings
+for update
+using (true)
+with check (true);
+
+drop policy if exists "association_site_settings_delete_all" on public.association_site_settings;
+create policy "association_site_settings_delete_all"
+on public.association_site_settings
 for delete
 using (true);
 
