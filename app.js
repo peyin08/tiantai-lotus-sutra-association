@@ -1,12 +1,14 @@
 const STORAGE_KEYS = {
   posts: "tiantian-lotus-posts-v2",
   donation: "tiantian-lotus-donation-settings-v1",
+  siteProfile: "tiantian-lotus-site-profile-v1",
   cloud: "tiantian-lotus-cloud-settings-v1",
   lang: "tiantian-lotus-language-v1",
 };
 
 const I18N = {
   en: {
+    nav_about: "About",
     nav_updates: "Updates",
     nav_gallery: "Gallery",
     nav_donate: "Donate",
@@ -26,6 +28,25 @@ const I18N = {
     hero_card_cta: "Support the Association",
     mission_eyebrow: "Mission",
     mission_title: "Rooted in the Lotus Sutra, expressed through daily kindness.",
+    about_eyebrow: "About",
+    about_title: "About Tiantai Lotus Sutra Association",
+    about_sub:
+      "A bilingual public page for our mission, contact details, and location information.",
+    about_mission_title: "Who We Are",
+    about_mission_text:
+      "Tiantai Lotus Sutra Association is a community for Lotus Sutra study, chanting, compassionate service, and shared practice.",
+    about_mission_note:
+      "Add your founding story, teachers, and regular practice schedule here.",
+    about_contact_title: "Contact",
+    about_contact_text:
+      "For events, volunteering, donations, or study group information, please contact us.",
+    about_location_title: "Location",
+    about_location_text:
+      "Add your temple/association address here so members and visitors can find you on Google and maps.",
+    about_location_label: "Address",
+    about_location_placeholder: "Address to be updated",
+    about_location_note:
+      "Tip: use your full street address and city/state for better local search visibility.",
     intro_practice_title: "Practice Together",
     intro_practice_text:
       "Share chanting sessions, teachings, and study circle highlights so members and friends can stay connected.",
@@ -82,11 +103,21 @@ const I18N = {
     reset_form: "Reset",
     donation_settings_title: "Donation Settings",
     donation_settings_sub:
-      "Save your real donation links and contact info (stored locally on this device).",
+      "Save your real donation links and contact info (stored locally and can sync to cloud).",
     label_paypal_url: "PayPal Donation URL",
     label_stripe_url: "Stripe Donation URL",
     label_zelle_url: "Zelle / Bank Info URL",
     save_donation_settings: "Save Donation Settings",
+    about_settings_title: "About / Contact / Location",
+    about_settings_sub:
+      "Edit public organization details shown on the homepage (saved locally and can sync to cloud).",
+    about_form_mission: "Mission / Intro (English)",
+    about_form_mission_zh: "Mission / Intro (Chinese)",
+    about_form_contact: "Contact Text (English)",
+    about_form_contact_zh: "Contact Text (Chinese)",
+    about_form_address: "Address",
+    about_form_schedule: "Practice Time / Schedule",
+    save_about_settings: "Save About Info",
     cloud_settings_title: "Cloud Sync (Supabase)",
     cloud_settings_sub:
       "Optional: connect Supabase to sync posts and upload media across devices.",
@@ -115,6 +146,7 @@ const I18N = {
     delete_confirm: "Delete post",
     clear_confirm: "Clear all posts and uploaded media stored in this browser?",
     donation_saved: "Donation settings saved.",
+    about_saved: "About/contact/location settings saved.",
     cloud_saved: "Cloud settings saved.",
     cloud_not_configured: "Cloud sync not configured yet.",
     cloud_connecting: "Connecting to Supabase...",
@@ -122,9 +154,18 @@ const I18N = {
     cloud_connect_failed: "Supabase connection failed.",
     cloud_syncing: "Syncing posts from cloud...",
     cloud_sync_done: "Cloud sync complete.",
+    cloud_site_settings_synced: "Cloud sync complete (posts + site settings).",
     cloud_sync_failed: "Cloud sync failed.",
     cloud_publish_failed: "Saved locally, but cloud upload failed.",
     cloud_publish_done: "Saved locally and published to cloud.",
+    cloud_settings_sync_failed: "Local save succeeded, but cloud settings sync failed.",
+    backup_title: "Backup / Restore",
+    backup_sub: "Export local posts and settings to a JSON file or import from a backup.",
+    backup_export: "Export Backup",
+    backup_import: "Import Backup",
+    backup_export_done: "Backup file downloaded.",
+    backup_import_done: "Backup imported.",
+    backup_import_failed: "Backup import failed. Please use a valid JSON backup file.",
     seed_title: "Welcome to Our New Association Website",
     seed_body:
       "This page is ready for Tiantai Lotus Sutra Association updates. Use the Upload section below to add announcements, images, and videos.",
@@ -132,6 +173,7 @@ const I18N = {
     seed_body_zh: "此页面已准备好发布协会动态。请在下方上传图片、视频并发布公告。",
   },
   zh: {
+    nav_about: "关于",
     nav_updates: "动态",
     nav_gallery: "相册",
     nav_donate: "捐款",
@@ -150,6 +192,19 @@ const I18N = {
     hero_card_cta: "支持协会",
     mission_eyebrow: "使命",
     mission_title: "以法华经为根本，以日日善行落实慈悲。",
+    about_eyebrow: "关于",
+    about_title: "关于天台法华经协会",
+    about_sub: "这是协会的公开双语介绍页面，包含使命、联络方式与地点信息。",
+    about_mission_title: "我们是谁",
+    about_mission_text: "天台法华经协会是一个共学法华经、诵经修持、慈悲服务与共同修行的社区。",
+    about_mission_note: "可在这里补充协会缘起、法师/老师介绍与固定共修时间。",
+    about_contact_title: "联络方式",
+    about_contact_text: "如需活动、志工、捐款或共修小组资讯，请与我们联系。",
+    about_location_title: "地点",
+    about_location_text: "请在这里填写寺院/协会地址，方便会员与访客在 Google 与地图中找到您。",
+    about_location_label: "地址",
+    about_location_placeholder: "地址待更新",
+    about_location_note: "建议填写完整街道地址与城市/州名，以提升本地搜索可见度。",
     intro_practice_title: "共同修学",
     intro_practice_text: "分享诵经、开示与读书会重点，让会员与朋友保持连接。",
     intro_service_title: "服务社区",
@@ -200,10 +255,20 @@ const I18N = {
     reset_form: "重置",
     donation_settings_title: "捐款设置",
     donation_settings_sub: "保存真实捐款链接与联络信息（仅存于此设备浏览器）。",
+    
     label_paypal_url: "PayPal 捐款链接",
     label_stripe_url: "Stripe 捐款链接",
     label_zelle_url: "Zelle / 银行转账说明链接",
     save_donation_settings: "保存捐款设置",
+    about_settings_title: "关于 / 联络 / 地点",
+    about_settings_sub: "编辑首页公开信息（本地保存，并可同步到云端）。",
+    about_form_mission: "简介（英文）",
+    about_form_mission_zh: "简介（中文）",
+    about_form_contact: "联络说明（英文）",
+    about_form_contact_zh: "联络说明（中文）",
+    about_form_address: "地址",
+    about_form_schedule: "共修时间 / 活动时间",
+    save_about_settings: "保存关于信息",
     cloud_settings_title: "云端同步（Supabase）",
     cloud_settings_sub: "可选：连接 Supabase 以跨设备同步动态并上传媒体。",
     supabase_url: "Supabase 项目网址",
@@ -228,6 +293,7 @@ const I18N = {
     delete_confirm: "删除动态",
     clear_confirm: "确认清除当前浏览器中保存的全部动态与媒体？",
     donation_saved: "已保存捐款设置。",
+    about_saved: "已保存关于/联络/地点设置。",
     cloud_saved: "已保存云端设置。",
     cloud_not_configured: "尚未配置云端同步。",
     cloud_connecting: "正在连接 Supabase...",
@@ -235,9 +301,18 @@ const I18N = {
     cloud_connect_failed: "Supabase 连接失败。",
     cloud_syncing: "正在从云端同步动态...",
     cloud_sync_done: "云端同步完成。",
+    cloud_site_settings_synced: "云端同步完成（动态 + 网站信息）。",
     cloud_sync_failed: "云端同步失败。",
     cloud_publish_failed: "已保存到本机，但云端发布失败。",
     cloud_publish_done: "已保存到本机并发布到云端。",
+    cloud_settings_sync_failed: "本地已保存，但云端网站信息同步失败。",
+    backup_title: "备份 / 还原",
+    backup_sub: "将本机动态与设置导出为 JSON，或从备份导入。",
+    backup_export: "导出备份",
+    backup_import: "导入备份",
+    backup_export_done: "备份文件已下载。",
+    backup_import_done: "备份导入完成。",
+    backup_import_failed: "备份导入失败，请选择有效的 JSON 备份文件。",
     seed_title: "Welcome to Our New Association Website",
     seed_body:
       "This page is ready for Tiantai Lotus Sutra Association updates. Use the Upload section below to add announcements, images, and videos.",
@@ -255,10 +330,24 @@ const DEFAULT_DONATION_SETTINGS = {
   message: "",
 };
 
+const DEFAULT_SITE_PROFILE = {
+  missionEn:
+    "Tiantai Lotus Sutra Association is a community for Lotus Sutra study, chanting, compassionate service, and shared practice.",
+  missionZh: "天台法华经协会是一个共学法华经、诵经修持、慈悲服务与共同修行的社区。",
+  contactTextEn:
+    "For events, volunteering, donations, or study group information, please contact us.",
+  contactTextZh: "如需活动、志工、捐款或共修小组资讯，请与我们联系。",
+  address: "",
+  schedule: "",
+  email: "donations@tiantianlotus.org",
+  phone: "(000) 000-0000",
+};
+
 const DEFAULT_CLOUD_SETTINGS = {
   url: "",
   anonKey: "",
   postsTable: "association_posts",
+  siteSettingsTable: "association_site_settings",
   bucket: "association-media",
   autoPublish: true,
 };
@@ -269,6 +358,7 @@ const state = {
   pendingFiles: [],
   language: "en",
   donationSettings: { ...DEFAULT_DONATION_SETTINGS },
+  siteProfile: { ...DEFAULT_SITE_PROFILE },
   cloudSettings: { ...DEFAULT_CLOUD_SETTINGS },
   supabaseClient: null,
 };
@@ -305,6 +395,25 @@ const elements = {
   donationPhoneText: document.getElementById("donationPhoneText"),
   donationMessageText: document.getElementById("donationMessageText"),
   donationNotice: document.getElementById("donationNotice"),
+  donationSettingsStatus: document.getElementById("donationSettingsStatus"),
+  aboutMissionText: document.getElementById("aboutMissionText"),
+  aboutEmailLink: document.getElementById("aboutEmailLink"),
+  aboutPhoneText: document.getElementById("aboutPhoneText"),
+  aboutContactText: document.getElementById("aboutContactText"),
+  aboutLocationText: document.getElementById("aboutLocationText"),
+  aboutAddressText: document.getElementById("aboutAddressText"),
+  aboutLocationNote: document.getElementById("aboutLocationNote"),
+  aboutScheduleText: document.getElementById("aboutScheduleText"),
+  aboutSettingsForm: document.getElementById("aboutSettingsForm"),
+  aboutMissionInput: document.getElementById("aboutMissionInput"),
+  aboutMissionZhInput: document.getElementById("aboutMissionZhInput"),
+  aboutContactInput: document.getElementById("aboutContactInput"),
+  aboutContactZhInput: document.getElementById("aboutContactZhInput"),
+  aboutAddressInput: document.getElementById("aboutAddressInput"),
+  aboutScheduleInput: document.getElementById("aboutScheduleInput"),
+  aboutEmailInput: document.getElementById("aboutEmailInput"),
+  aboutPhoneInput: document.getElementById("aboutPhoneInput"),
+  aboutSettingsStatus: document.getElementById("aboutSettingsStatus"),
   cloudSettingsForm: document.getElementById("cloudSettingsForm"),
   supabaseUrl: document.getElementById("supabaseUrl"),
   supabaseAnonKey: document.getElementById("supabaseAnonKey"),
@@ -313,6 +422,10 @@ const elements = {
   cloudAutoPublish: document.getElementById("cloudAutoPublish"),
   cloudConnectBtn: document.getElementById("cloudConnectBtn"),
   cloudStatus: document.getElementById("cloudStatus"),
+  exportBackupBtn: document.getElementById("exportBackupBtn"),
+  importBackupBtn: document.getElementById("importBackupBtn"),
+  importBackupFile: document.getElementById("importBackupFile"),
+  backupStatus: document.getElementById("backupStatus"),
 };
 
 function uid() {
@@ -329,6 +442,12 @@ function t(key) {
 function setCloudStatus(message, type = "") {
   elements.cloudStatus.textContent = message;
   elements.cloudStatus.className = `status-line${type ? ` ${type}` : ""}`;
+}
+
+function setStatusLine(el, message, type = "") {
+  if (!el) return;
+  el.textContent = message;
+  el.className = `status-line${type ? ` ${type}` : ""}`;
 }
 
 function seedPosts() {
@@ -417,6 +536,9 @@ function loadState() {
   const savedDonation = parseJsonStorage(STORAGE_KEYS.donation, {});
   state.donationSettings = { ...DEFAULT_DONATION_SETTINGS, ...savedDonation };
 
+  const savedSiteProfile = parseJsonStorage(STORAGE_KEYS.siteProfile, {});
+  state.siteProfile = { ...DEFAULT_SITE_PROFILE, ...savedSiteProfile };
+
   const savedCloud = parseJsonStorage(STORAGE_KEYS.cloud, {});
   state.cloudSettings = { ...DEFAULT_CLOUD_SETTINGS, ...savedCloud };
 }
@@ -439,6 +561,10 @@ function savePosts() {
 
 function saveDonationSettings() {
   saveJsonStorage(STORAGE_KEYS.donation, state.donationSettings);
+}
+
+function saveSiteProfile() {
+  saveJsonStorage(STORAGE_KEYS.siteProfile, state.siteProfile);
 }
 
 function saveCloudSettings() {
@@ -500,6 +626,7 @@ function applyTranslations() {
   }
 
   renderDonationPanel();
+  renderAboutSection();
   renderPosts();
   renderGallery();
   renderPreview();
@@ -512,6 +639,15 @@ function fillSettingsForms() {
   elements.donationEmail.value = state.donationSettings.email || "";
   elements.donationPhone.value = state.donationSettings.phone || "";
   elements.donationMessage.value = state.donationSettings.message || "";
+
+  elements.aboutMissionInput.value = state.siteProfile.missionEn || "";
+  elements.aboutMissionZhInput.value = state.siteProfile.missionZh || "";
+  elements.aboutContactInput.value = state.siteProfile.contactTextEn || "";
+  elements.aboutContactZhInput.value = state.siteProfile.contactTextZh || "";
+  elements.aboutAddressInput.value = state.siteProfile.address || "";
+  elements.aboutScheduleInput.value = state.siteProfile.schedule || "";
+  elements.aboutEmailInput.value = state.siteProfile.email || "";
+  elements.aboutPhoneInput.value = state.siteProfile.phone || "";
 
   elements.supabaseUrl.value = state.cloudSettings.url || "";
   elements.supabaseAnonKey.value = state.cloudSettings.anonKey || "";
@@ -545,6 +681,32 @@ function renderDonationPanel() {
   elements.donationNotice.textContent = configuredAny
     ? t("donation_notice_configured")
     : t("donation_notice_missing");
+}
+
+function renderAboutSection() {
+  const mission =
+    state.language === "zh"
+      ? state.siteProfile.missionZh || state.siteProfile.missionEn
+      : state.siteProfile.missionEn || state.siteProfile.missionZh;
+  const contactText =
+    state.language === "zh"
+      ? state.siteProfile.contactTextZh || state.siteProfile.contactTextEn
+      : state.siteProfile.contactTextEn || state.siteProfile.contactTextZh;
+
+  elements.aboutMissionText.textContent = mission || t("about_mission_text");
+  elements.aboutContactText.textContent = contactText || t("about_contact_text");
+
+  const email = state.siteProfile.email || state.donationSettings.email || DEFAULT_SITE_PROFILE.email;
+  const phone = state.siteProfile.phone || state.donationSettings.phone || DEFAULT_SITE_PROFILE.phone;
+  elements.aboutEmailLink.textContent = email;
+  elements.aboutEmailLink.href = `mailto:${email}`;
+  elements.aboutPhoneText.textContent = phone;
+
+  elements.aboutLocationText.textContent = t("about_location_text");
+  elements.aboutLocationNote.textContent = t("about_location_note");
+  elements.aboutAddressText.textContent = state.siteProfile.address || t("about_location_placeholder");
+  elements.aboutScheduleText.textContent = state.siteProfile.schedule ? state.siteProfile.schedule : "";
+  elements.aboutScheduleText.hidden = !state.siteProfile.schedule;
 }
 
 function matchesSearch(post) {
@@ -790,6 +952,10 @@ function cloudTable() {
   return state.cloudSettings.postsTable || DEFAULT_CLOUD_SETTINGS.postsTable;
 }
 
+function cloudSettingsTable() {
+  return state.cloudSettings.siteSettingsTable || DEFAULT_CLOUD_SETTINGS.siteSettingsTable;
+}
+
 function cloudBucket() {
   return state.cloudSettings.bucket || DEFAULT_CLOUD_SETTINGS.bucket;
 }
@@ -799,7 +965,51 @@ async function testCloudConnection() {
   const client = await ensureSupabaseClient();
   const { error } = await client.from(cloudTable()).select("id", { count: "exact", head: true });
   if (error) throw error;
+  const settingsCheck = await client.from(cloudSettingsTable()).select("key", { head: true, count: "exact" });
+  if (settingsCheck.error) throw settingsCheck.error;
   setCloudStatus(t("cloud_connected"), "ok");
+}
+
+async function upsertSiteSettingsToCloud() {
+  const client = await ensureSupabaseClient();
+  const rows = [
+    {
+      key: "donation_settings",
+      value: state.donationSettings,
+      updated_at: new Date().toISOString(),
+    },
+    {
+      key: "site_profile",
+      value: state.siteProfile,
+      updated_at: new Date().toISOString(),
+    },
+  ];
+  const { error } = await client.from(cloudSettingsTable()).upsert(rows);
+  if (error) throw error;
+}
+
+async function syncSiteSettingsFromCloud() {
+  const client = await ensureSupabaseClient();
+  const { data, error } = await client
+    .from(cloudSettingsTable())
+    .select("key,value")
+    .in("key", ["donation_settings", "site_profile"]);
+  if (error) throw error;
+
+  for (const row of data || []) {
+    if (row.key === "donation_settings" && row.value && typeof row.value === "object") {
+      state.donationSettings = { ...DEFAULT_DONATION_SETTINGS, ...row.value };
+      saveDonationSettings();
+    }
+    if (row.key === "site_profile" && row.value && typeof row.value === "object") {
+      state.siteProfile = { ...DEFAULT_SITE_PROFILE, ...row.value };
+      saveSiteProfile();
+    }
+  }
+
+  fillSettingsForms();
+  renderDonationPanel();
+  renderAboutSection();
 }
 
 async function uploadPendingMediaToCloud(postId) {
@@ -915,8 +1125,9 @@ async function syncFromCloud() {
     const incoming = (data || []).map(fromCloudRow).filter(Boolean);
     state.posts = mergePostsById(state.posts, incoming);
     savePosts();
+    await syncSiteSettingsFromCloud();
     renderAll();
-    setCloudStatus(t("cloud_sync_done"), "ok");
+    setCloudStatus(t("cloud_site_settings_synced"), "ok");
   } catch (error) {
     console.error(error);
     setCloudStatus(`${t("cloud_sync_failed")} ${error.message || ""}`.trim(), "error");
@@ -1012,7 +1223,40 @@ function handleDonationSettingsSubmit(event) {
   };
   saveDonationSettings();
   renderDonationPanel();
-  window.alert(t("donation_saved"));
+  setStatusLine(elements.donationSettingsStatus, t("donation_saved"), "ok");
+  if (canUseCloud()) {
+    upsertSiteSettingsToCloud()
+      .then(() => setCloudStatus(t("cloud_saved"), "ok"))
+      .catch((error) => {
+        console.error(error);
+        setCloudStatus(`${t("cloud_settings_sync_failed")} ${error.message || ""}`.trim(), "error");
+      });
+  }
+}
+
+function handleAboutSettingsSubmit(event) {
+  event.preventDefault();
+  state.siteProfile = {
+    missionEn: elements.aboutMissionInput.value.trim(),
+    missionZh: elements.aboutMissionZhInput.value.trim(),
+    contactTextEn: elements.aboutContactInput.value.trim(),
+    contactTextZh: elements.aboutContactZhInput.value.trim(),
+    address: elements.aboutAddressInput.value.trim(),
+    schedule: elements.aboutScheduleInput.value.trim(),
+    email: elements.aboutEmailInput.value.trim(),
+    phone: elements.aboutPhoneInput.value.trim(),
+  };
+  saveSiteProfile();
+  renderAboutSection();
+  setStatusLine(elements.aboutSettingsStatus, t("about_saved"), "ok");
+  if (canUseCloud()) {
+    upsertSiteSettingsToCloud()
+      .then(() => setCloudStatus(t("cloud_saved"), "ok"))
+      .catch((error) => {
+        console.error(error);
+        setCloudStatus(`${t("cloud_settings_sync_failed")} ${error.message || ""}`.trim(), "error");
+      });
+  }
 }
 
 function handleCloudSettingsSubmit(event) {
@@ -1021,12 +1265,74 @@ function handleCloudSettingsSubmit(event) {
     url: elements.supabaseUrl.value.trim(),
     anonKey: elements.supabaseAnonKey.value.trim(),
     postsTable: elements.supabasePostsTable.value.trim() || DEFAULT_CLOUD_SETTINGS.postsTable,
+    siteSettingsTable: DEFAULT_CLOUD_SETTINGS.siteSettingsTable,
     bucket: elements.supabaseBucket.value.trim() || DEFAULT_CLOUD_SETTINGS.bucket,
     autoPublish: elements.cloudAutoPublish.checked,
   };
   resetSupabaseClient();
   saveCloudSettings();
   setCloudStatus(t("cloud_saved"));
+}
+
+function buildBackupPayload() {
+  return {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    posts: state.posts,
+    donationSettings: state.donationSettings,
+    siteProfile: state.siteProfile,
+    cloudSettings: state.cloudSettings,
+  };
+}
+
+function handleExportBackup() {
+  const json = JSON.stringify(buildBackupPayload(), null, 2);
+  const blob = new Blob([json], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `tiantai-lotus-backup-${new Date().toISOString().slice(0, 10)}.json`;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  setStatusLine(elements.backupStatus, t("backup_export_done"), "ok");
+}
+
+async function handleImportBackupFile(event) {
+  const file = event.target.files?.[0];
+  if (!file) return;
+  try {
+    const text = await file.text();
+    const parsed = JSON.parse(text);
+    if (Array.isArray(parsed.posts)) {
+      state.posts = parsed.posts.map(normalizePost).filter(Boolean);
+      savePosts();
+    }
+    if (parsed.donationSettings && typeof parsed.donationSettings === "object") {
+      state.donationSettings = { ...DEFAULT_DONATION_SETTINGS, ...parsed.donationSettings };
+      saveDonationSettings();
+    }
+    if (parsed.siteProfile && typeof parsed.siteProfile === "object") {
+      state.siteProfile = { ...DEFAULT_SITE_PROFILE, ...parsed.siteProfile };
+      saveSiteProfile();
+    }
+    if (parsed.cloudSettings && typeof parsed.cloudSettings === "object") {
+      state.cloudSettings = { ...DEFAULT_CLOUD_SETTINGS, ...parsed.cloudSettings };
+      saveCloudSettings();
+      resetSupabaseClient();
+    }
+    fillSettingsForms();
+    renderDonationPanel();
+    renderAboutSection();
+    renderAll();
+    setStatusLine(elements.backupStatus, t("backup_import_done"), "ok");
+  } catch (error) {
+    console.error(error);
+    setStatusLine(elements.backupStatus, t("backup_import_failed"), "error");
+  } finally {
+    event.target.value = "";
+  }
 }
 
 async function handleCloudConnect() {
@@ -1054,8 +1360,12 @@ function bindEvents() {
   elements.clearAllBtn.addEventListener("click", handleClearAll);
   elements.syncNowBtn.addEventListener("click", syncFromCloud);
   elements.donationSettingsForm.addEventListener("submit", handleDonationSettingsSubmit);
+  elements.aboutSettingsForm.addEventListener("submit", handleAboutSettingsSubmit);
   elements.cloudSettingsForm.addEventListener("submit", handleCloudSettingsSubmit);
   elements.cloudConnectBtn.addEventListener("click", handleCloudConnect);
+  elements.exportBackupBtn.addEventListener("click", handleExportBackup);
+  elements.importBackupBtn.addEventListener("click", () => elements.importBackupFile.click());
+  elements.importBackupFile.addEventListener("change", handleImportBackupFile);
 
   for (const btn of elements.langButtons) {
     btn.addEventListener("click", () => setLanguage(btn.dataset.langBtn));
@@ -1067,6 +1377,7 @@ function init() {
   fillSettingsForms();
   bindEvents();
   renderDonationPanel();
+  renderAboutSection();
   applyTranslations();
   if (!canUseCloud()) {
     setCloudStatus(t("cloud_not_configured"));

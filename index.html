@@ -54,6 +54,7 @@
         <span class="brand-name">Tiantai Lotus Sutra Association 天台法华经协会</span>
       </div>
       <div class="nav-links">
+        <a href="#about" data-i18n="nav_about">About</a>
         <a href="#updates" data-i18n="nav_updates">Updates</a>
         <a href="#gallery" data-i18n="nav_gallery">Gallery</a>
         <a href="#donate" data-i18n="nav_donate">Donate</a>
@@ -118,6 +119,49 @@
           <p data-i18n="intro_preserve_text">
             Upload event photos and videos to document growth, celebration, and intergenerational participation.
           </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section about" id="about" aria-labelledby="about-title">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="about_eyebrow">About</p>
+        <h2 id="about-title" data-i18n="about_title">About Tiantai Lotus Sutra Association</h2>
+        <p class="section-sub" data-i18n="about_sub">
+          A bilingual public page for our mission, contact details, and location information.
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <article class="about-card">
+          <h3 data-i18n="about_mission_title">Who We Are</h3>
+          <p id="aboutMissionText" data-i18n="about_mission_text">
+            Tiantai Lotus Sutra Association is a community for Lotus Sutra study, chanting, compassionate service, and shared practice.
+          </p>
+          <p class="tiny-note" id="aboutMissionNote" data-i18n="about_mission_note">
+            Add your founding story, teachers, and regular practice schedule here.
+          </p>
+        </article>
+
+        <article class="about-card">
+          <h3 data-i18n="about_contact_title">Contact</h3>
+          <p><strong data-i18n="label_email">Email</strong>: <a id="aboutEmailLink" href="mailto:donations@tiantianlotus.org">donations@tiantianlotus.org</a></p>
+          <p><strong data-i18n="label_phone">Phone</strong>: <span id="aboutPhoneText">(000) 000-0000</span></p>
+          <p id="aboutContactText" data-i18n="about_contact_text">
+            For events, volunteering, donations, or study group information, please contact us.
+          </p>
+        </article>
+
+        <article class="about-card">
+          <h3 data-i18n="about_location_title">Location</h3>
+          <p id="aboutLocationText" data-i18n="about_location_text">
+            Add your temple/association address here so members and visitors can find you on Google and maps.
+          </p>
+          <p><strong data-i18n="about_location_label">Address</strong>: <span id="aboutAddressText" data-i18n="about_location_placeholder">Address to be updated</span></p>
+          <p id="aboutLocationNote" class="tiny-note" data-i18n="about_location_note">
+            Tip: use your full street address and city/state for better local search visibility.
+          </p>
+          <p id="aboutScheduleText" class="tiny-note"></p>
         </article>
       </div>
     </section>
@@ -310,6 +354,50 @@
             <div class="form-actions">
               <button type="submit" class="button secondary" data-i18n="save_donation_settings">Save Donation Settings</button>
             </div>
+            <p id="donationSettingsStatus" class="status-line" aria-live="polite"></p>
+          </form>
+
+          <form id="aboutSettingsForm" class="studio-form compact">
+            <h3 class="panel-title" data-i18n="about_settings_title">About / Contact / Location</h3>
+            <p class="tiny-note" data-i18n="about_settings_sub">
+              Edit public organization details shown on the homepage (saved locally and can sync to cloud).
+            </p>
+            <label>
+              <span data-i18n="about_form_mission">Mission / Intro (English)</span>
+              <textarea id="aboutMissionInput" rows="3"></textarea>
+            </label>
+            <label>
+              <span data-i18n="about_form_mission_zh">Mission / Intro (Chinese)</span>
+              <textarea id="aboutMissionZhInput" rows="3"></textarea>
+            </label>
+            <label>
+              <span data-i18n="about_form_contact">Contact Text (English)</span>
+              <textarea id="aboutContactInput" rows="2"></textarea>
+            </label>
+            <label>
+              <span data-i18n="about_form_contact_zh">Contact Text (Chinese)</span>
+              <textarea id="aboutContactZhInput" rows="2"></textarea>
+            </label>
+            <label>
+              <span data-i18n="about_form_address">Address</span>
+              <textarea id="aboutAddressInput" rows="2" placeholder="123 Main St, City, State ZIP"></textarea>
+            </label>
+            <label>
+              <span data-i18n="about_form_schedule">Practice Time / Schedule</span>
+              <input type="text" id="aboutScheduleInput" placeholder="Sun 10:00 AM Chanting, Wed 7:00 PM Study" />
+            </label>
+            <label>
+              <span data-i18n="label_email">Email</span>
+              <input type="email" id="aboutEmailInput" placeholder="contact@example.org" />
+            </label>
+            <label>
+              <span data-i18n="label_phone">Phone</span>
+              <input type="text" id="aboutPhoneInput" placeholder="(555) 555-5555" />
+            </label>
+            <div class="form-actions">
+              <button type="submit" class="button secondary" data-i18n="save_about_settings">Save About Info</button>
+            </div>
+            <p id="aboutSettingsStatus" class="status-line" aria-live="polite"></p>
           </form>
 
           <form id="cloudSettingsForm" class="studio-form compact">
@@ -348,6 +436,19 @@
             </div>
             <p id="cloudStatus" class="status-line" aria-live="polite"></p>
           </form>
+
+          <div class="studio-form compact">
+            <h3 class="panel-title" data-i18n="backup_title">Backup / Restore</h3>
+            <p class="tiny-note" data-i18n="backup_sub">
+              Export local posts and settings to a JSON file or import from a backup.
+            </p>
+            <div class="form-actions">
+              <button type="button" id="exportBackupBtn" class="button ghost" data-i18n="backup_export">Export Backup</button>
+              <button type="button" id="importBackupBtn" class="button ghost" data-i18n="backup_import">Import Backup</button>
+              <input type="file" id="importBackupFile" accept="application/json" hidden />
+            </div>
+            <p id="backupStatus" class="status-line" aria-live="polite"></p>
+          </div>
         </div>
       </div>
     </section>
