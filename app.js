@@ -404,6 +404,7 @@ const elements = {
   donationNotice: document.getElementById("donationNotice"),
   donationSettingsStatus: document.getElementById("donationSettingsStatus"),
   aboutMissionText: document.getElementById("aboutMissionText"),
+  aboutMissionNote: document.getElementById("aboutMissionNote"),
   aboutEmailLink: document.getElementById("aboutEmailLink"),
   aboutPhoneText: document.getElementById("aboutPhoneText"),
   aboutContactText: document.getElementById("aboutContactText"),
@@ -707,14 +708,25 @@ function renderAboutSection() {
   elements.aboutMissionText.textContent = mission || t("about_mission_text");
   elements.aboutContactText.textContent = contactText || t("about_contact_text");
 
+  const hasCustomMission =
+    (state.siteProfile.missionEn || "").trim() !== "" &&
+    (state.siteProfile.missionEn || "").trim() !== DEFAULT_SITE_PROFILE.missionEn;
+  const hasCustomMissionZh =
+    (state.siteProfile.missionZh || "").trim() !== "" &&
+    (state.siteProfile.missionZh || "").trim() !== DEFAULT_SITE_PROFILE.missionZh;
+  elements.aboutMissionNote.hidden = hasCustomMission || hasCustomMissionZh;
+
   const email = state.siteProfile.email || state.donationSettings.email || DEFAULT_SITE_PROFILE.email;
   const phone = state.siteProfile.phone || state.donationSettings.phone || DEFAULT_SITE_PROFILE.phone;
   elements.aboutEmailLink.textContent = email;
   elements.aboutEmailLink.href = `mailto:${email}`;
   elements.aboutPhoneText.textContent = phone;
 
+  const hasAddress = Boolean((state.siteProfile.address || "").trim());
   elements.aboutLocationText.textContent = t("about_location_text");
+  elements.aboutLocationText.hidden = hasAddress;
   elements.aboutLocationNote.textContent = t("about_location_note");
+  elements.aboutLocationNote.hidden = hasAddress;
   elements.aboutAddressText.textContent = state.siteProfile.address || t("about_location_placeholder");
   elements.aboutScheduleText.textContent = state.siteProfile.schedule ? state.siteProfile.schedule : "";
   elements.aboutScheduleText.hidden = !state.siteProfile.schedule;
