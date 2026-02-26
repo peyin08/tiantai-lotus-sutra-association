@@ -182,7 +182,7 @@
           aria-label="Search updates"
           data-i18n-placeholder="search_placeholder"
         />
-        <button id="syncNowBtn" class="button secondary" type="button" data-i18n="sync_now">
+        <button id="syncNowBtn" class="button secondary" type="button" data-i18n="sync_now" hidden>
           Sync From Cloud
         </button>
         <button id="clearAllBtn" class="button ghost warn" type="button" data-i18n="clear_posts">
@@ -477,6 +477,7 @@
     </figure>
   </template>
 
+  <script src="./public-config.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="./app.js"></script>
 </body>

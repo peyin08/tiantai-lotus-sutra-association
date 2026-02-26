@@ -1422,8 +1422,8 @@ function init() {
   renderAboutSection();
   applyTranslations();
 
-  if (!state.isAdminView && elements.syncNowBtn) {
-    elements.syncNowBtn.hidden = true;
+  if (elements.syncNowBtn) {
+    elements.syncNowBtn.hidden = !state.isAdminView;
   }
 
   if (!canUseCloud() && !canUseCloudRead()) {
