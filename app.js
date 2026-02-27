@@ -810,24 +810,29 @@ function renderPosts() {
       mediaGrid.remove();
     }
 
-    deleteBtn.textContent = t("delete_post");
-    deleteBtn.addEventListener("click", async () => {
-      const confirmed = window.confirm(`${t("delete_confirm")}: "${getPostDisplayTitle(post)}"?`);
-      if (!confirmed) return;
+    if (state.isAdminView) {
+      deleteBtn.hidden = false;
+      deleteBtn.textContent = t("delete_post");
+      deleteBtn.addEventListener("click", async () => {
+        const confirmed = window.confirm(`${t("delete_confirm")}: "${getPostDisplayTitle(post)}"?`);
+        if (!confirmed) return;
 
-      state.posts = state.posts.filter((p) => p.id !== post.id);
-      savePosts();
-      renderAll();
+        state.posts = state.posts.filter((p) => p.id !== post.id);
+        savePosts();
+        renderAll();
 
-      if (canUseCloud()) {
-        try {
-          await ensureSupabaseClient();
-          await deletePostInCloud(post.id);
-        } catch (error) {
-          console.warn("Cloud delete failed:", error);
+        if (canUseCloud()) {
+          try {
+            await ensureSupabaseClient();
+            await deletePostInCloud(post.id);
+          } catch (error) {
+            console.warn("Cloud delete failed:", error);
+          }
         }
-      }
-    });
+      });
+    } else {
+      deleteBtn.hidden = true;
+    }
 
     elements.postsList.append(fragment);
   }
@@ -1434,9 +1439,8 @@ function init() {
   renderAboutSection();
   applyTranslations();
 
-  if (elements.syncNowBtn) {
-    elements.syncNowBtn.hidden = !state.isAdminView;
-  }
+  if (elements.syncNowBtn) elements.syncNowBtn.hidden = !state.isAdminView;
+  if (elements.clearAllBtn) elements.clearAllBtn.hidden = !state.isAdminView;
 
   if (!canUseCloud() && !canUseCloudRead()) {
     setCloudStatus(t("cloud_not_configured"));
